@@ -41,9 +41,6 @@ class Storage(driver.Base):
         if self._root_path != '/':
             name = name.replace(
                 self._init_path() + '/', '', 1)
-        # trim extra trailing slashes
-        if name.endswith('/'):
-            name = name[:-1]
         return name
 
     def content_redirect_url(self, path):
@@ -115,7 +112,6 @@ class Storage(driver.Base):
                     param = 'subdir'
                 else:
                     raise
-                # trim extra trailing slashes
                 yield self._clean_up_name(inode[param])
         except Exception:
             raise exceptions.FileNotFoundError('%s is not there' % path)
